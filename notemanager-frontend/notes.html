@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Note Manager</title>
+    <script src="script.js" defer></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Note Manager</h1>
+      <div class="menu-bar">
+        <p id="welcome"></p>
+        <button id="logout-btn" class="green-btn">Logout</button>
+        <button id="theme-toggle-btn">Toggle theme</button>
+      </div>
+    </header>
+    <main>
+      <p id="notification">Form Submitted</p>
+      <button id="form-open-btn" title="Add new note">Add new note</button>
+      <ul id="note-list">
+        <p id="notes-loading">Loading...</p>
+        <p id="notes-error">
+          Error loading notes. Reload the page to try again
+        </p>
+      </ul>
+    </main>
+    <div id="modal">
+      <form id="new-note-form">
+        <h2>Add note</h2>
+        <label for="title">Title*</label>
+        <input name="title" id="title" placeholder="Title" />
+        <p class="error" id="title-error">This field is required</p>
+        <label for="description">Description*</label>
+        <textarea
+          name="description"
+          id="description"
+          placeholder="Description"
+          rows="3"
+          cols="36"
+          maxlength="108"
+        ></textarea>
+        <p class="error" id="desc-error">This field is required</p>
+        <p>Choose priority:*</p>
+        <label for="low" class="radio-label">
+          <input type="radio" id="low" value="1" name="priority" checked />
+          Low</label
+        >
+        <label for="medium" class="radio-label priority2">
+          <input type="radio" id="medium" value="2" name="priority" />
+          Medium</label
+        >
+        <label for="high" class="radio-label priority3">
+          <input type="radio" id="high" value="3" name="priority" />
+          High</label
+        >
+
+        <p class="error" id="submit-error">Error creating note</p>
+        <button id="submit" class="green-btn" title="Submit form">Submit</button
+        ><button id="form-close-btn" type="button" title="Close form">
+          Close
+        </button>
+      </form>
+    </div>
+    <footer>
+      <p>Tommi Tuikka 2024</p>
+      <a href="https://github.com/TuikkaTommi/portfolio"
+        >https://github.com/TuikkaTommi/portfolio</a
+      >
+    </footer>
+  </body>
+</html>

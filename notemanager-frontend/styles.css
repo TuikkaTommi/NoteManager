@@ -1,0 +1,279 @@
+:root {
+  /* --main: rgb(239, 239, 239); */
+  --accent: rgb(190, 44, 44);
+}
+
+[data-theme="light"] {
+  --main: rgb(225, 225, 225);
+  --color-bg: rgb(239, 239, 239);
+  --color-fg: #000000;
+  --note-border-color: rgb(216, 216, 216);
+  --medium-priority: rgb(136, 129, 0);
+  --high-priority: rgb(197, 0, 0);
+}
+
+[data-theme="dark"] {
+  --main: rgb(49, 49, 49);
+  --color-bg: rgb(20, 20, 20);
+  --color-fg: rgb(239, 239, 239);
+  --note-border-color: rgb(121, 121, 121);
+  --medium-priority: rgb(255, 174, 0);
+  --high-priority: rgb(230, 0, 0);
+}
+
+/* 
+  To force footer to bottom of screen, even with short content, 
+  body is displayed as flex (direction column)
+  and minimum height is set to full viewport height.
+  Footer will also have margin-top: auto to push it to the bottom.
+*/
+body {
+  text-align: left;
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-bg);
+  color: var(--color-fg);
+}
+
+header {
+  text-align: center;
+  width: 100%;
+  padding: 1em 0;
+}
+
+header > h1 {
+  margin: 0 0 0.5em 0;
+  color: var(--accent);
+}
+
+.menu-bar {
+  background-color: var(--accent);
+  color: white;
+  padding: 0.5rem 1em;
+  text-align: right;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+}
+
+.menu-bar > p {
+  margin: 0;
+}
+
+
+.login-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+}
+
+.login-form > p {
+  margin: 0;
+}
+
+.login-form > input {
+  width: 15em;
+  background-color: aliceblue;
+  border-radius: 5px;
+}
+
+
+main {
+  max-width: 100%;
+  padding: 0;
+}
+
+button {
+  border: 1px solid gray;
+  border-radius: 5px;
+  padding: 0.75em;
+  background-color: var(--accent);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  filter: brightness(90%);
+}
+
+.green-btn {
+  background-color: green;
+}
+
+
+#note-list {
+  padding: 0;
+  text-align: center;
+  list-style: none;
+}
+
+#note-list > li {
+  text-align: left;
+  border: 1px solid var(--note-border-color);
+  margin: 0;
+  padding: 0.5em 2em;
+  background-color: var(--main);
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: space-between;
+  gap: 2em;
+  align-items: center;
+}
+
+/* 
+  #note-list > li:hover {
+    transform: translateX(5px);
+  }
+*/
+
+
+
+#note-list > li:first-of-type {
+  border-radius: 5px 5px 0px 0px;
+}
+
+#note-list > li:last-of-type {
+  border-radius: 0px 0px 5px 5px;
+}
+
+#notes-error {
+  display: none;
+}
+
+.text-container {
+  display: flex;
+  flex-direction: column;
+  word-break: break-all;
+  max-width: 70%;
+}
+
+.priority2 {
+  color: var(--medium-priority);
+}
+
+.priority3 {
+  color: var(--high-priority);
+}
+
+.btn-container {
+  display: flex;
+  gap: 1em;
+}
+
+#modal {
+  background-color: rgba(0, 0, 0, 0.5);
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  z-index: 1;
+  overflow: auto;
+  top: 0;
+  display: none;
+}
+
+#new-note-form {
+  background-color: var(--color-bg);
+  border: 1px solid black;
+  border-radius: 10px;
+  width: fit-content;
+  margin: 15% auto;
+  padding: 1em 2em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+.edit-form {
+  background-color: var(--main);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  margin: 0;
+  padding: 0.5em 0;
+  border: 0;
+}
+
+h2 {
+  margin: 0;
+  border-bottom: 1px solid gray;
+}
+
+label {
+  width: fit-content;
+}
+
+input, textarea {
+  padding: 0.5em;
+  max-width: 20em; 
+  background-color: aliceblue;
+  border-radius: 5px;
+}
+
+input[type="radio"] {
+  max-width: fit-content;
+  margin: 0;
+}
+
+#notification {
+  display: none;
+  margin-bottom: 0;
+}
+
+.error {
+  font-size: smaller;
+  margin: 0;
+  text-align: left;
+  color: red;
+  display: none;
+}
+
+/* Make the footer stay at the bottom of the page when content is short */
+footer {
+  background-color: var(--main);
+  height: fit-content;
+  width: 100%;
+  padding: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.25em;
+  margin-top: auto;
+}
+
+footer > p {
+  padding: 0;
+  margin: 0;
+}
+
+footer > a {
+  color: var(--accent);
+}
+
+footer > a:visited {
+  color: blueviolet;
+}
+
+@media only screen and (min-width: 700px)  {
+  main {
+    max-width: 80%;
+    min-width: 50%;
+    margin: 2em auto;
+  }
+
+  .menu-bar {
+    text-align: center;
+  }
+ }
+
+@media only screen and (min-width: 850px)  {
+ main {
+   max-width: 70%;
+   margin: 2em auto;
+ }
+}
