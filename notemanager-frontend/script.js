@@ -102,10 +102,10 @@ async function submitEdit(id) {
   }
 }
 
-// Funtion to display fetched data in DOM
-function showData(data) {
-  if (data.length > 0) {
-    data.forEach((note) => {
+// Funtion to display fetched notes in DOM
+function showNotes(notes) {
+  if (notes.length > 0) {
+    notes.forEach((note) => {
       const listItem = document.createElement('li');
       listItem.id = `note-${note.id}`;
 
@@ -118,14 +118,15 @@ function showData(data) {
       editForm.classList.add('edit-form');
       editForm.style.display = 'none';
 
+      // Create an input element for the title inside edit-form
       const titleInput = document.createElement('input');
       titleInput.id = `edit-title-input-${note.id}`;
       titleInput.value = note.title;
       titleInput.name = 'title';
       titleInput.placeholder = 'Title';
-
       editForm.appendChild(titleInput);
 
+      // Create a textarea for the description inside edit-form
       const descriptionTextarea = document.createElement('textarea');
       descriptionTextarea.id = `edit-description-input-${note.id}`;
       descriptionTextarea.name = 'description';
@@ -135,6 +136,38 @@ function showData(data) {
       descriptionTextarea.value = note.description;
 
       editForm.appendChild(descriptionTextarea);
+
+      // Create a dropdown-select for priority inside edit-form
+      const prioritySelect = document.createElement('select');
+      prioritySelect.id = `edit-priority-input-${note.id}`;
+      prioritySelect.name = 'priority';
+
+      const priorityLabel = document.createElement('label');
+      priorityLabel.htmlFor = prioritySelect.id;
+      priorityLabel.innerText = 'Priority:';
+
+      const options = [
+        { priority: 'Low', value: 1 },
+        { priority: 'Medium', value: 2 },
+        { priority: 'High', value: 3 },
+      ];
+
+      options.forEach((opt) => {
+        let isSelected = false;
+        if (opt.value === note.priority) {
+          isSelected = true;
+        }
+        const optionElem = new Option(
+          opt.priority,
+          opt.value,
+          false,
+          isSelected
+        );
+        prioritySelect.add(optionElem);
+      });
+
+      editForm.appendChild(priorityLabel);
+      editForm.appendChild(prioritySelect);
 
       const titleElem = document.createElement('h3');
       titleElem.textContent = note.title;
@@ -216,7 +249,7 @@ async function fetchNotes() {
       console.log('Error, response status:', responseAsJson);
     } else {
       console.log('Received notes:', responseAsJson);
-      showData(responseAsJson);
+      showNotes(responseAsJson);
     }
   } catch (err) {
     console.log(err.message);
