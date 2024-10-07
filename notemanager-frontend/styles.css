@@ -48,6 +48,14 @@ header > h1 {
   color: var(--accent);
 }
 
+a {
+  color: inherit;
+}
+
+a:visited {
+  color: inherit;
+}
+
 .menu-bar {
   background-color: var(--accent);
   color: white;
@@ -63,12 +71,19 @@ header > h1 {
   margin: 0;
 }
 
-
 .login-form {
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
+  text-align: left;
+  align-items: left;
   gap: 1em;
+  background-color: var(--main);
+  border-radius: 10px;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 2rem;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
 }
 
 .login-form > p {
@@ -76,9 +91,14 @@ header > h1 {
 }
 
 .login-form > input {
-  width: 15em;
+  max-width: 100%;
+  min-width: 75vw;
   background-color: aliceblue;
   border-radius: 5px;
+}
+
+.login-form > a {
+  text-align: center;
 }
 
 
@@ -118,6 +138,7 @@ button:hover {
   margin: 0;
   padding: 0.5em 2em;
   background-color: var(--main);
+  color: var(--color-fg);
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
   display: flex;
   /* flex-direction: column; */
@@ -136,8 +157,6 @@ button:hover {
     transform: translateX(5px);
   }
 */
-
-
 
 #note-list > li:first-of-type {
   border-radius: 5px 5px 0px 0px;
@@ -258,17 +277,19 @@ footer > p {
   margin: 0;
 }
 
-footer > a {
-  color: var(--accent);
-}
-
-footer > a:visited {
-  color: blueviolet;
-}
 
 @media only screen and (min-width: 530px) {
   #note-list > li {
     flex-direction: row;
+  }
+
+  .login-form {
+    max-width: 450px;
+  }
+
+  .login-form > input {
+    width: auto;
+    min-width: 0;
   }
 }
 

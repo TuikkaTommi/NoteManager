@@ -6,6 +6,13 @@ const loginError = document.getElementById('login-error');
 
 const loginUrl = 'http://localhost:3000/login';
 
+// Load stored theme on page load
+const theme = localStorage.getItem('theme');
+if (theme) {
+  document.querySelector('html').setAttribute('data-theme', theme);
+  console.log(`Loaded theme ${theme} from localstorage`);
+}
+
 async function postLogin(formDataAsObj) {
   const body = formDataAsObj;
   console.log('Body in postData()-function:', JSON.stringify(body));
@@ -71,9 +78,36 @@ async function submitLogin(e) {
 
 loginBtn.addEventListener('click', (e) => submitLogin(e));
 
-// Load stored theme on page load
-const theme = localStorage.getItem('theme');
-if (theme) {
-  document.querySelector('html').setAttribute('data-theme', theme);
-  console.log(`Loaded theme ${theme} from localstorage`);
+async function createAccount(e) {
+  e.preventDefault();
+  console.log('Placeholder for creation');
+  // ADD FURTHER FUNCTIONALITY HERE
+}
+
+function switchToCreation() {
+  console.log('Switching to account creation');
+  const h2 = document.getElementById('account-h2');
+  h2.innerText = 'Create account';
+
+  loginBtn.innerText = 'Create account';
+  loginBtn.removeEventListener('click', (e) => submitLogin(e));
+  loginBtn.addEventListener('click', (e) => createAccount(e));
+
+  const link = document.getElementById('account-link');
+  link.href = 'javascript:switchToSignin()';
+  link.innerText = 'Sign in';
+}
+
+function switchToSignin() {
+  console.log('Switching to signin');
+  const h2 = document.getElementById('account-h2');
+  h2.innerText = 'Sign in';
+
+  loginBtn.innerText = 'Sign in';
+  loginBtn.removeEventListener('click', (e) => createAccount(e));
+  loginBtn.addEventListener('click', (e) => submitLogin(e));
+
+  const link = document.getElementById('account-link');
+  link.href = 'javascript:switchToCreation()';
+  link.innerText = 'Create account';
 }

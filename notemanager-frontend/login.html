@@ -15,6 +15,7 @@
     <header>
       <h1>Note Manager</h1>
       <form id="login-form" class="login-form">
+        <h2 id="account-h2">Sign in</h2>
         <label>Username</label><input name="username" placeholder="Username" />
         <p class="error" id="username-error">This field is required</p>
         <label for="pw-input">Password</label>
@@ -25,8 +26,11 @@
           id="pw-input"
         />
         <p class="error" id="password-error">This field is required</p>
-        <button id="login-btn" class="green-btn">Login</button>
+        <button id="login-btn" class="green-btn">Sign in</button>
         <p class="error" id="login-error">Wrong username or password</p>
+        <a href="javascript:switchToCreation()" id="account-link"
+          >Create account</a
+        >
       </form>
     </header>
   </body>
