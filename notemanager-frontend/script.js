@@ -28,6 +28,9 @@ const serverBaseUrl = 'http://localhost:3000/notes';
 function openEditForm(id) {
   console.log(`Opening edit-form for note with id ${id}`);
 
+  const parentNote = document.getElementById(`note-${id}`);
+  parentNote.classList.add('edit-open');
+
   const form = document.getElementById(`edit-form-${id}`);
   form.style.display = 'flex';
 
@@ -48,6 +51,8 @@ function openEditForm(id) {
 
 function closeEditForm(id, oldTitle, oldDescription) {
   console.log(`Closing edit-form for note with id ${id}`);
+  const parentNote = document.getElementById(`note-${id}`);
+  parentNote.classList.remove('edit-open');
 
   const form = document.getElementById(`edit-form-${id}`);
   form.style.display = 'none';

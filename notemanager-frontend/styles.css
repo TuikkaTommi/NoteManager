@@ -120,10 +120,16 @@ button:hover {
   background-color: var(--main);
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
   display: flex;
+  /* flex-direction: column; */
   justify-content: space-between;
   gap: 2em;
   align-items: center;
 }
+
+.edit-open {
+  flex-direction: column;
+}
+
 
 /* 
   #note-list > li:hover {
@@ -258,6 +264,12 @@ footer > a {
 
 footer > a:visited {
   color: blueviolet;
+}
+
+@media only screen and (min-width: 530px) {
+  #note-list > li {
+    flex-direction: row;
+  }
 }
 
 @media only screen and (min-width: 700px)  {
