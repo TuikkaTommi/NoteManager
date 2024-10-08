@@ -4,7 +4,7 @@ const form = document.getElementById('new-note-form');
 const formOpenBtn = document.getElementById('form-open-btn');
 const formCloseBtn = document.getElementById('form-close-btn');
 const submitBtn = document.getElementById('submit');
-const notification = document.getElementById('notification');
+const submitNotification = document.getElementById('submit-notification');
 const titleError = document.getElementById('title-error');
 const descError = document.getElementById('desc-error');
 const submitError = document.getElementById('submit-error');
@@ -269,7 +269,7 @@ fetchNotes();
 function openForm() {
   console.log('Opening form...');
   modal.style.display = 'block';
-  notification.style.display = 'none';
+  submitNotification.style.display = 'none';
 }
 
 function closeForm() {
@@ -309,7 +309,7 @@ async function submit(e) {
       closeForm();
       submitBtn.textContent = 'Submit';
       submitBtn.disabled = false;
-      notification.style.display = 'block';
+      submitNotification.style.display = 'block';
       location.reload();
     } else {
       submitError.style.display = 'block';

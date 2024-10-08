@@ -3,8 +3,12 @@ const loginForm = document.getElementById('login-form');
 const usernameError = document.getElementById('username-error');
 const passwordError = document.getElementById('password-error');
 const loginError = document.getElementById('login-error');
+const creationError = document.getElementById('creation-error');
+const userAlreadyExistsError = document.getElementById('user-already-exists');
+const creationNotification = document.getElementById('creation-notification');
 
 const loginUrl = 'http://localhost:3000/login';
+const creationUrl = 'http://localhost:3000/users';
 
 // Load stored theme on page load
 const theme = localStorage.getItem('theme');
@@ -13,6 +17,17 @@ if (theme) {
   console.log(`Loaded theme ${theme} from localstorage`);
 }
 
+// Function to reset notifications and errors in the form
+function resetNotifications() {
+  usernameError.style.display = 'none';
+  passwordError.style.display = 'none';
+  loginError.style.display = 'none';
+  creationError.style.display = 'none';
+  userAlreadyExistsError.style.display = 'none';
+  creationNotification.style.display = 'none';
+}
+
+// Function that handles login-communication with server
 async function postLogin(formDataAsObj) {
   const body = formDataAsObj;
   console.log('Body in postData()-function:', JSON.stringify(body));
@@ -39,9 +54,8 @@ async function postLogin(formDataAsObj) {
   }
 }
 
-// Submit login details
-async function submitLogin(e) {
-  e.preventDefault();
+// Function that handles submitting login-form
+async function submitLogin() {
   const formData = new FormData(loginForm);
   const formDataAsObj = Object.fromEntries(formData);
 
@@ -76,38 +90,99 @@ async function submitLogin(e) {
   }
 }
 
-loginBtn.addEventListener('click', (e) => submitLogin(e));
+// Function that handles creation-communication with server
+async function postCreation(formDataAsObj) {
+  const body = formDataAsObj;
+  console.log('Body in postData()-function:', JSON.stringify(body));
+  try {
+    const response = await fetch(creationUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    });
 
-async function createAccount(e) {
-  e.preventDefault();
-  console.log('Placeholder for creation');
-  // ADD FURTHER FUNCTIONALITY HERE
+    if (!response.ok) {
+      const responseAsJson = await response.json();
+      if (responseAsJson.message === 'User already exists') {
+        return responseAsJson.message;
+      }
+      console.log('Error, response was:', responseAsJson.message);
+      return false;
+    } else {
+      // console.log(responseAsJson);
+      return response;
+    }
+  } catch (err) {
+    console.log(err);
+    return false;
+  }
 }
 
+// Fucntion to handle submit of account creation form
+async function submitCreation() {
+  const formData = new FormData(loginForm);
+  const formDataAsObj = Object.fromEntries(formData);
+
+  // Validate that username and password exists, then submit.
+  if (!formDataAsObj.username.trim()) {
+    usernameError.style.display = 'block';
+    return;
+  } else if (!formDataAsObj.password.trim()) {
+    passwordError.style.display = 'block';
+    return;
+  } else {
+    loginBtn.textContent = 'Loading...';
+    loginBtn.disabled = true;
+
+    console.log(formDataAsObj);
+    console.log('Form submitted');
+
+    const creationResponse = await postCreation(formDataAsObj);
+    console.log('Response from registration:', creationResponse);
+
+    if (!creationResponse) {
+      creationError.style.display = 'block';
+    } else if (creationResponse === 'User already exists') {
+      userAlreadyExistsError.style.display = 'block';
+    } else {
+      creationNotification.style.display = 'block';
+      console.log('Account created');
+    }
+    loginBtn.textContent = 'Create account';
+    loginBtn.disabled = false;
+  }
+}
+
+// Switch the form to account creation
 function switchToCreation() {
+  resetNotifications();
   console.log('Switching to account creation');
   const h2 = document.getElementById('account-h2');
   h2.innerText = 'Create account';
 
   loginBtn.innerText = 'Create account';
-  loginBtn.removeEventListener('click', (e) => submitLogin(e));
-  loginBtn.addEventListener('click', (e) => createAccount(e));
+  loginBtn.onclick = submitCreation;
 
   const link = document.getElementById('account-link');
   link.href = 'javascript:switchToSignin()';
   link.innerText = 'Sign in';
 }
 
+// Switch the form to sign in
 function switchToSignin() {
-  console.log('Switching to signin');
+  resetNotifications();
+  console.log('Switching to sign in');
   const h2 = document.getElementById('account-h2');
   h2.innerText = 'Sign in';
 
   loginBtn.innerText = 'Sign in';
-  loginBtn.removeEventListener('click', (e) => createAccount(e));
-  loginBtn.addEventListener('click', (e) => submitLogin(e));
+  loginBtn.onclick = submitLogin;
 
   const link = document.getElementById('account-link');
   link.href = 'javascript:switchToCreation()';
   link.innerText = 'Create account';
+
+  creationNotification.style.display = 'none';
 }
