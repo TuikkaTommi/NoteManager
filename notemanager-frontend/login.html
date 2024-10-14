@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Welcome to Note Manager</title>
     <script src="loginscript.js" defer></script>
+    <script src="https://www.google.com/recaptcha/api.js"></script>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -31,12 +32,22 @@
         />
         <p class="error" id="password-error">This field is required</p>
         <button
+          data-sitekey="6LeOgFwqAAAAANrLpZMlJml3eBAAc25_P9cCeCLA"
+          data-callback="submitLogin"
           id="login-btn"
-          class="green-btn"
+          class="green-btn g-recaptcha"
           type="button"
-          onclick="submitLogin()"
         >
           Sign in
+        </button>
+        <button
+          data-sitekey="6LeOgFwqAAAAANrLpZMlJml3eBAAc25_P9cCeCLA"
+          data-callback="submitCreation"
+          id="creation-btn"
+          class="green-btn g-recaptcha"
+          type="button"
+        >
+          Create Account
         </button>
         <p class="error" id="login-error">Wrong username or password</p>
         <p class="error" id="creation-error">
@@ -45,6 +56,7 @@
         <p class="error" id="user-already-exists">
           User with this username already exists
         </p>
+        <p class="error" id="captcha-error">Captcha invalid, try again</p>
         <a href="javascript:switchToCreation()" id="account-link"
           >Create account</a
         >

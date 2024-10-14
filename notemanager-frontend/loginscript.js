@@ -1,14 +1,18 @@
-const loginBtn = document.getElementById('login-btn');
 const loginForm = document.getElementById('login-form');
+const loginBtn = document.getElementById('login-btn');
+const creationBtn = document.getElementById('creation-btn');
+
 const usernameError = document.getElementById('username-error');
 const passwordError = document.getElementById('password-error');
 const loginError = document.getElementById('login-error');
 const creationError = document.getElementById('creation-error');
 const userAlreadyExistsError = document.getElementById('user-already-exists');
+const captchaError = document.getElementById('captcha-error');
 const creationNotification = document.getElementById('creation-notification');
 
 const loginUrl = 'http://localhost:3000/login';
 const creationUrl = 'http://localhost:3000/users';
+const captchaUrl = 'http://localhost:3000/captcha';
 
 // Load stored theme on page load
 const theme = localStorage.getItem('theme');
@@ -24,7 +28,32 @@ function resetNotifications() {
   loginError.style.display = 'none';
   creationError.style.display = 'none';
   userAlreadyExistsError.style.display = 'none';
+  captchaError.style.display = 'none';
   creationNotification.style.display = 'none';
+}
+
+// Function that validates captcha, and then proceeds with login/registration
+async function validateCaptcha(captchaToken) {
+  try {
+    const captchaResponse = await fetch(captchaUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token: captchaToken }),
+    });
+
+    console.log(captchaResponse);
+    if (!captchaResponse.ok) {
+      console.log('Captcha failed');
+      return false;
+    } else {
+      console.log('Captcha success');
+      return true;
+    }
+
+    // submitLogin();
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 // Function that handles login-communication with server
@@ -55,7 +84,16 @@ async function postLogin(formDataAsObj) {
 }
 
 // Function that handles submitting login-form
-async function submitLogin() {
+async function submitLogin(captchaToken) {
+  console.log(captchaToken);
+  const isCaptchaValid = await validateCaptcha(captchaToken);
+
+  if (!isCaptchaValid) {
+    console.log('Captcha invalid, cancelling...');
+    captchaError.style.display = 'block';
+    return;
+  }
+
   const formData = new FormData(loginForm);
   const formDataAsObj = Object.fromEntries(formData);
 
@@ -121,7 +159,16 @@ async function postCreation(formDataAsObj) {
 }
 
 // Fucntion to handle submit of account creation form
-async function submitCreation() {
+async function submitCreation(captchaToken) {
+  console.log(captchaToken);
+  const isCaptchaValid = await validateCaptcha(captchaToken);
+
+  if (!isCaptchaValid) {
+    console.log('Captcha invalid, cancelling...');
+    captchaError.style.display = 'block';
+    return;
+  }
+
   const formData = new FormData(loginForm);
   const formDataAsObj = Object.fromEntries(formData);
 
@@ -162,8 +209,12 @@ function switchToCreation() {
   const h2 = document.getElementById('account-h2');
   h2.innerText = 'Create account';
 
-  loginBtn.innerText = 'Create account';
-  loginBtn.onclick = submitCreation;
+  loginBtn.style.display = 'none';
+  creationBtn.style.display = 'block';
+
+  // loginBtn.innerText = 'Create account';
+  // loginBtn['data-callback'] = submitCreation;
+  // loginBtn.onclick = submitCreation;
 
   const link = document.getElementById('account-link');
   link.href = 'javascript:switchToSignin()';
@@ -177,8 +228,11 @@ function switchToSignin() {
   const h2 = document.getElementById('account-h2');
   h2.innerText = 'Sign in';
 
-  loginBtn.innerText = 'Sign in';
-  loginBtn.onclick = submitLogin;
+  creationBtn.style.display = 'none';
+  loginBtn.style.display = 'block';
+
+  // loginBtn.innerText = 'Sign in';
+  // loginBtn.onclick = submitLogin;
 
   const link = document.getElementById('account-link');
   link.href = 'javascript:switchToCreation()';

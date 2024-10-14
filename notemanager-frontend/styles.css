@@ -21,6 +21,7 @@
   --high-priority: rgb(230, 0, 0);
 }
 
+
 /* 
   To force footer to bottom of screen, even with short content, 
   body is displayed as flex (direction column)
@@ -37,7 +38,7 @@ body {
   color: var(--color-fg);
 }
 
-header {
+header, .login {
   text-align: center;
   width: 100%;
   padding: 1em 0;
@@ -101,6 +102,9 @@ a:visited {
   text-align: center;
 }
 
+#creation-btn {
+  display: none;
+}
 
 main {
   max-width: 100%;
