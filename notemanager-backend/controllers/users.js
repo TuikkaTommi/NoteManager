@@ -63,7 +63,7 @@ userRouter.post(
     if (existingUser) {
       // console.log(existingUser);
       console.log('User with this username already exists');
-      res.status(400).send('User with this username already exists');
+      res.status(400).send({ message: 'User already exists' });
       return;
     }
 

@@ -5,6 +5,7 @@ const sequelize = require('./dbConn');
 const notesRouter = require('./controllers/notes');
 const userRouter = require('./controllers/users');
 const loginRouter = require('./controllers/login');
+const captchaRouter = require('./controllers/captcha');
 // const middleware = require('./utils/middleware');
 
 const app = express();
@@ -15,6 +16,7 @@ app.use(cors());
 app.use('/notes', notesRouter);
 app.use('/users', userRouter);
 app.use('/login', loginRouter);
+app.use('/captcha', captchaRouter);
 
 // Function that connects to db and then starts the server
 const startApp = async () => {

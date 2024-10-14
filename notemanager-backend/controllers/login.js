@@ -43,7 +43,7 @@ loginRouter.post('/', [check('username').trim().escape()], async (req, res) => {
         expiresIn: '1h',
       }
     );
-    console.log(`Generated token ${token} for user ${username}`);
+    // console.log(`Generated token ${token} for user ${username}`);
     res.status(200).send({ token: token, username: username });
   } catch (error) {
     console.log(error);
