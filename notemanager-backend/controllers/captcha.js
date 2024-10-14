@@ -1,5 +1,6 @@
 const captchaRouter = require('express').Router();
 
+// Method that verifies a captcha token
 captchaRouter.post('/', async (req, res) => {
   const token = req.body.token;
 
@@ -22,7 +23,8 @@ captchaRouter.post('/', async (req, res) => {
 
     const responseAsJson = await captchaResponse.json();
     console.log(responseAsJson);
-    if (responseAsJson.success) {
+    // Check the result was successful and score was high enough
+    if (responseAsJson.success && responseAsJson.score > 0.4) {
       res.status(200).send(true);
       return;
     } else {

@@ -67,6 +67,16 @@ userRouter.post(
       return;
     }
 
+    // Regular expression for password requirements.
+    // Password must be atleast 8 chars long, contain at least one number,
+    // one lowercase letter, one uppercase letter and it cannot contain spaces
+    // const regex = new RegExp(`^.*(?=.{8,})(?=.*[a-zA-ZäöÄÖ])(?=.*\d).*$`);
+    //
+    // if (!regex.test(password)) {
+    //   console.log('Password does not fulfill requirements');
+    //   res.status(403).send('Password does not fulfill requirements');
+    //   return;
+    // }
     try {
       // Password hashing with bcrypt
       const saltRounds = 10;
