@@ -48,36 +48,42 @@ userRouter.post(
   '/',
   [check('username').trim().escape(), check('password').trim().escape()],
   async (req, res) => {
-    const username = req.body.username;
-    const password = req.body.password;
-    if (!username || !password) {
-      res.status(400).send('Invalid request body');
-      console.log('Received invalid request body');
-      return;
-    }
-
-    // Check if user with given username already exists
-    const existingUser = await User.findByPk(username, {
-      attributes: { exclude: 'password' },
-    });
-    if (existingUser) {
-      // console.log(existingUser);
-      console.log('User with this username already exists');
-      res.status(400).send({ message: 'User already exists' });
-      return;
-    }
-
-    // Regular expression for password requirements.
-    // Password must be atleast 8 chars long, contain at least one number,
-    // one lowercase letter, one uppercase letter and it cannot contain spaces
-    // const regex = new RegExp(`^.*(?=.{8,})(?=.*[a-zA-ZäöÄÖ])(?=.*\d).*$`);
-    //
-    // if (!regex.test(password)) {
-    //   console.log('Password does not fulfill requirements');
-    //   res.status(403).send('Password does not fulfill requirements');
-    //   return;
-    // }
     try {
+      const username = req.body.username;
+      const password = req.body.password;
+      if (!username || !password) {
+        res.status(400).send('Invalid request body');
+        console.log('Received invalid request body');
+        return;
+      }
+
+      // Check if user with given username already exists
+      const existingUser = await User.findByPk(username, {
+        attributes: { exclude: 'password' },
+      });
+      if (existingUser) {
+        // console.log(existingUser);
+        console.log('User with this username already exists');
+        res.status(400).send({ message: 'User already exists' });
+        return;
+      }
+
+      // Regular expression for password requirements.
+      // Password must be atleast 8 chars long, contain at least one number and a letter
+      const regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+
+      if (!regex.test(password)) {
+        console.log(
+          'Password must be atleast 8 characters long and contain atleast one number and a letter'
+        );
+        res
+          .status(403)
+          .send(
+            'Password must be atleast 8 characters long and contain atleast one number and a letter'
+          );
+        return;
+      }
+
       // Password hashing with bcrypt
       const saltRounds = 10;
       bcrypt.hash(password, saltRounds, async (err, hashedPassword) => {
@@ -97,6 +103,7 @@ userRouter.post(
       });
     } catch (error) {
       res.status(400).send('Error adding user to db');
+      console.log(error);
     }
   }
 );
