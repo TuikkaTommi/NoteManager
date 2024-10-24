@@ -129,7 +129,7 @@ async function submitLogin(captchaToken) {
 }
 
 // Function that handles creation-communication with server
-async function postCreation(formDataAsObj) {
+async function postAccountCreation(formDataAsObj) {
   const body = formDataAsObj;
   console.log('Body in postData()-function:', JSON.stringify(body));
   try {
@@ -159,7 +159,7 @@ async function postCreation(formDataAsObj) {
 }
 
 // Fucntion to handle submit of account creation form
-async function submitCreation(captchaToken) {
+async function submitAccountCreation(captchaToken) {
   console.log(captchaToken);
   const isCaptchaValid = await validateCaptcha(captchaToken);
 
@@ -180,13 +180,13 @@ async function submitCreation(captchaToken) {
     passwordError.style.display = 'block';
     return;
   } else {
-    loginBtn.textContent = 'Loading...';
-    loginBtn.disabled = true;
+    creationBtn.textContent = 'Loading...';
+    creationBtn.disabled = true;
 
     console.log(formDataAsObj);
     console.log('Form submitted');
 
-    const creationResponse = await postCreation(formDataAsObj);
+    const creationResponse = await postAccountCreation(formDataAsObj);
     console.log('Response from registration:', creationResponse);
 
     if (!creationResponse) {
@@ -197,8 +197,8 @@ async function submitCreation(captchaToken) {
       creationNotification.style.display = 'block';
       console.log('Account created');
     }
-    loginBtn.textContent = 'Create account';
-    loginBtn.disabled = false;
+    creationBtn.textContent = 'Create account';
+    creationBtn.disabled = false;
   }
 }
 
