@@ -212,10 +212,6 @@ function switchToCreation() {
   loginBtn.style.display = 'none';
   creationBtn.style.display = 'block';
 
-  // loginBtn.innerText = 'Create account';
-  // loginBtn['data-callback'] = submitCreation;
-  // loginBtn.onclick = submitCreation;
-
   const link = document.getElementById('account-link');
   link.href = 'javascript:switchToSignin()';
   link.innerText = 'Sign in';
@@ -230,9 +226,6 @@ function switchToSignin() {
 
   creationBtn.style.display = 'none';
   loginBtn.style.display = 'block';
-
-  // loginBtn.innerText = 'Sign in';
-  // loginBtn.onclick = submitLogin;
 
   const link = document.getElementById('account-link');
   link.href = 'javascript:switchToCreation()';
