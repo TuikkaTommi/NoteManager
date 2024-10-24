@@ -23,7 +23,7 @@ const startApp = async () => {
   try {
     await sequelize.authenticate();
     console.log('Connection has been established successfully.');
-    app.listen(port, () => {
+    app.listen(port, [process.env.MY_IP || 'localhost'], () => {
       console.log(`Server listening at port: ${port}`);
     });
   } catch (error) {
