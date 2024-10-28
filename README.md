@@ -1,10 +1,10 @@
-# NoteManager
+# NoteManager - Readme will be updated soon...
 
 NoteManager is a work in progress web app for managing notes. Frontend of this application is made purely with vanilla JavaScript and HTML + CSS. The backend consists of a ExpressJS server and a MySQL-database.
 
 ## Frontend
 
-### Readme will be updated soon...
+Will be updated soon...
 
 ## Server
 
