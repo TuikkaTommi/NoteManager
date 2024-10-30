@@ -2,7 +2,7 @@
 
 NoteManager is a web app for managing notes. Users can add, edit, and remove their notes. Notes have a title, description/content and a priority. Higher priority notes are displayed first and with different colors.
 
-## New features to come
+## Features to come in the future
 
 - Admin dashboard
 - Localisation for English and Finnish
