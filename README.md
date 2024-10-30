@@ -1,8 +1,23 @@
 # NoteManager - Readme will be updated soon...
 
-NoteManager is a work in progress web app for managing notes. Frontend of this application is made purely with vanilla JavaScript and HTML + CSS. The backend consists of a ExpressJS server and a MySQL-database.
+NoteManager is a web app for managing notes. Users can add, edit, and remove their notes. Notes have a title, description/content and a priority. Higher priority notes are displayed first and with different colors.
+
+## New features to come
+
+- Admin dashboard
+- Localisation for English and Finnish
+- and more...
 
 ## Frontend
+
+The frontend of NoteManager is created with vanilla JavaScript, HTML and CSS. The frontend is currently split into two HTML-files; [login.html for login/registration](https://github.com/TuikkaTommi/NoteManager/blob/main/notemanager-frontend/login.html) and [notes.html for the actual application](https://github.com/TuikkaTommi/NoteManager/blob/main/notemanager-frontend/notes.html). The interacctivity is then added with JS DOM-manipulation.
+
+Some of the features the application currently includes:
+- Dark and light themes
+- Form inside a modal for adding new notes
+- Editing form for notes appears inside the note that is edited
+- Responsivity across different screen sizes
+- Captcha-protection for account registration and login
 
 Will be updated soon...
 
